@@ -1,9 +1,6 @@
 import socket
 import subprocess
 
-# windows machine 192.168.43.86
-# kali boox 192.168.43.96
-
 def logo():
     print ("""
 
